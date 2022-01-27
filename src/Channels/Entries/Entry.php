@@ -142,10 +142,6 @@ class Entry extends AbstractItem
         return $this;
     }
 
-    public function validate()
-    {
-    }
-
     /**
      * Saves the Entry object (create/update)
      * @return bool
@@ -463,41 +459,5 @@ class Entry extends AbstractItem
                 $member->save();
             }
         }
-    }
-
-    /**
-     * Seeds the channel field data of a blank entry
-     * @param \Faker\Generator $faker
-     * @throws EntryException
-     */
-    public function seedIt(\Faker\Generator $faker, AbstractSeed $seed): AbstractItem
-    {
-        if ($this->entry_id) {
-            throw new EntryException('Entry already has data assigned to it!');
-        }
-
-        $this->set('title', ucwords(implode(' ', $faker->words(3))));
-        $this->set('author_id', $seed->getFakeMemberId());
-        $this->set('ip_address', $faker->ipv4);
-        $this->set('entry_date', $faker->dateTime->format('U'));
-        $this->set('edit_date', $faker->dateTime);
-        $this->set('forum_topic_id', 0);
-
-        foreach ($this->set_data as $key => $value) {
-            if ($seed->getConfig()->has($key, $this->getChannelName()) && $seed->getConfig()->isCallable($key, $this->getChannelName())) {
-                $this->set_data[$key] = $seed->getConfig()->call($key, $this->getChannelName(), $faker);
-            }
-        }
-
-        foreach ($this->getFields()->allFields($this->getChannelId()) as $field) {
-            $channel_field = $this->getFields()->getField($field['field_name'], $this->getChannelId());
-            if ($seed->getConfig()->has($field['field_name'], $this->getChannelName()) && $seed->getConfig()->isCallable($field['field_name'], $this->getChannelName())) {
-                $this->set_data[$field['field_name']] = $seed->getConfig()->call($field['field_name'], $this->getChannelName(), $faker);
-            } elseif ($channel_field instanceof AbstractField && $channel_field instanceof SeedInterface) {
-                $this->set_data[$field['field_name']] = $channel_field->fakieData($faker, $seed);
-            }
-        }
-
-        return $this;
     }
 }
