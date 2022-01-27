@@ -144,6 +144,7 @@ class Fields extends AbstractFields
                     'field_label' => $field->field_label,
                     'field_settings' => $field->field_settings,
                     'field_fmt' => $field->field_fmt,
+                    'field_required' => $field->field_required,
                 ];
             }
 

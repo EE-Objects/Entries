@@ -37,9 +37,16 @@ class Entry extends AbstractItem
     protected $fields = null;
 
     /**
-     * Entry constructor.
-     * @param ChannelEntry|null $entry
+     * The ExpressionEngine Validation Rules array
+     * @var array
      */
+    protected $rules = [
+        'title' => 'required',
+        'author_id' => 'required|isNaturalNoZero',
+        'channel_id' => 'required|isNaturalNoZero',
+        'status' => 'required',
+        'entry_date' => 'required',
+    ];
 
     /**
      * Uses the ChannelEntry object to initialize our own object
@@ -459,5 +466,19 @@ class Entry extends AbstractItem
                 $member->save();
             }
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidationRules(): array
+    {
+        foreach($this->getFields()->allFields($this->getChannelId()) As $field) {
+            if ($field['field_required'] == '1') {
+                $this->rules[$field['field_name']] = 'required';
+            }
+        }
+
+        return $this->rules;
     }
 }
