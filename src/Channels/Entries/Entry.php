@@ -104,6 +104,10 @@ class Entry extends AbstractItem
         return $this->channel_id;
     }
 
+    /**
+     * @return mixed|string
+     * @throws EntryException
+     */
     public function getChannelName()
     {
         if (empty($this->channel_name[$this->getChannelId()])) {
