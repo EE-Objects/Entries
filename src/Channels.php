@@ -25,6 +25,15 @@ class Channels
     }
 
     /**
+     * @param array $where
+     * @return Entry|null
+     */
+    public function getEntryWhere(array $where)
+    {
+        return $this->getEntries()->getEntryWhere($where);
+    }
+
+    /**
      * Returns a blank Channel Entry object
      * @param int $channel_id
      * @return Entry|null

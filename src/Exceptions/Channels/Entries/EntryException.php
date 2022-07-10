@@ -1,4 +1,5 @@
 <?php
+
 namespace EeObjects\Exceptions\Channels\Entries;
 
 use EeObjects\Exceptions\EeObjectsException;

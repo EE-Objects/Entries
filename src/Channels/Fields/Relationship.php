@@ -1,4 +1,5 @@
 <?php
+
 namespace EeObjects\Channels\Fields;
 
 use EeObjects\Channels\AbstractField;
@@ -52,8 +53,8 @@ class Relationship extends AbstractField
     public function delete()
     {
         $relationships = ee('Model')->get('ee_objects:Relationship')
-                                        ->filter('parent_id', $this->entry_id)
-                                        ->filter('field_id', $this->getId());
+            ->filter('parent_id', $this->entry_id)
+            ->filter('field_id', $this->getId());
 
         if ($relationships->count() >= 1) {
             foreach ($relationships->all() as $relationship) {

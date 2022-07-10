@@ -43,6 +43,29 @@ class Entries
         return null;
     }
 
+    /**
+     * @param array $where
+     * @return Entries\Entry|null
+     */
+    public function getEntryWhere(array $where): ?Entries\Entry
+    {
+        $entry = ee('Model')->get('ChannelEntry');
+        foreach ($where as $key => $value) {
+            $entry->filter($key, $value);
+        }
+
+        $entry = $entry->first();
+        if ($entry) {
+            return $this->buildEntryObj($entry);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param int $channel_id
+     * @return Entries\Entry
+     */
     public function getBlankEntry(int $channel_id): Entries\Entry
     {
         $obj = new Entries\Entry();

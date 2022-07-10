@@ -3,6 +3,7 @@
 namespace EeObjects\Services;
 
 use EeObjects\Channels;
+use EeObjects\Channels\Entries\Entry;
 
 class ChannelEntryService
 {
@@ -28,9 +29,9 @@ class ChannelEntryService
     /**
      * Returns the requested entry in a simple array
      * @param $entry_id
-     * @return array
+     * @return Entry|null
      */
-    public function getEntry($entry_id)
+    public function getEntry($entry_id): ?Entry
     {
         return $this->channels()->getEntry($entry_id);
     }
@@ -52,5 +53,10 @@ class ChannelEntryService
     public function getChannelByShortName($short_name)
     {
         return $this->channels()->getChannelByShortName($short_name);
+    }
+
+    public function getCategory()
+    {
+
     }
 }

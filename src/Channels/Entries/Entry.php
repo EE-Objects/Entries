@@ -283,8 +283,8 @@ class Entry extends AbstractItem
 
     /**
      * Sets up the required details for an Entry, usually before writes
-     * @throws EntryException
      * @return void
+     * @throws EntryException
      */
     protected function setDefaults()
     {
@@ -310,8 +310,8 @@ class Entry extends AbstractItem
 
     /**
      * Refreshes the existing object so it can be used repeatedly after writes
-     * @throws EntryException
      * @return void
+     * @throws EntryException
      */
     protected function renew(): void
     {
@@ -477,7 +477,7 @@ class Entry extends AbstractItem
      */
     public function getValidationRules(): array
     {
-        foreach($this->getFields()->allFields($this->getChannelId()) As $field) {
+        foreach ($this->getFields()->allFields($this->getChannelId()) as $field) {
             if ($field['field_required'] == '1') {
                 $this->rules[$field['field_name']] = 'required';
             }
